@@ -1,24 +1,27 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-const authMiddleware = require('./middleware/auth');
-const { login } = require('./controllers/authController');
-const {
+import authMiddleware from './middleware/auth.js';
+import { login } from './controllers/authController.js';
+import {
   listUsers,
   createUser,
   updateUser,
   deleteUser,
-} = require('./controllers/userController');
+} from './controllers/userController.js';
 
-// Login (única rota pública)
-router.post('/auth/login', login);
+const v1 = express.Router();
 
-// Todas abaixo protegidas
-router.use(authMiddleware);
+v1.post('/auth/login', login);
 
-router.get('/users', listUsers);
-router.post('/users', createUser);
-router.put('/users/:id', updateUser);
-router.delete('/users/:id', deleteUser);
+v1.use(authMiddleware);
 
-module.exports = router;
+v1.get('/users', listUsers);
+v1.post('/users', createUser);
+v1.put('/users/:id', updateUser);
+v1.delete('/users/:id', deleteUser);
+
+
+router.use('/v1', v1);
+
+export default router;
