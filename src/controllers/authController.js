@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { users } = require('../database');
-const expireTime = '1h';
+const expireTime = '8h';
 
 async function login(req, res) {
   const { email, password } = req.body;
