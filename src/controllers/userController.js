@@ -16,8 +16,10 @@ async function createUser(req, res) {
 
   const hashedPassword = await bcrypt.hash(password, 8);
 
+  const { v7: uuidv7 } = require('uuid'); 
+
   const newUser = {
-    id: Date.now(),
+    id: uuidv7(),
     email,
     name,
     type,
