@@ -167,6 +167,7 @@ error Command failed with exit code 1.
 | Método | Endpoint           | Protegida | Descrição                |
 |--------|--------------------|-----------|--------------------------|
 | GET    | /v1/users          | ✅ Sim    | Lista todos os usuários  |
+| GET    | /v1/users/:id      | ✅ Sim    | Lista o usuário pelo id  |
 | POST   | /v1/users          | ✅ Sim    | Cria um novo usuário     |
 | PUT    | /v1/users/:id      | ✅ Sim    | Atualiza um usuário      |
 | DELETE | /v1/users/:id      | ✅ Sim    | Remove um usuário        |
