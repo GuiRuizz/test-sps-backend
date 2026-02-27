@@ -5,7 +5,7 @@ let token;
 
 beforeAll(async () => {
   const response = await request(app)
-    .post("/auth/login")
+    .post("/v1/auth/login")
     .send({
       email: "admin@sps.com",
       password: "1234"
@@ -20,7 +20,7 @@ beforeAll(async () => {
 describe("User CRUD", () => {
   it("Deve criar um usuário novo", async () => {
     const response = await request(app)
-      .post("/users")
+      .post("/v1/users")
       .set("Authorization", `Bearer ${token}`)
       .send({
         email: "test@sps.com",
@@ -35,7 +35,7 @@ describe("User CRUD", () => {
 
   it("Deve parar a crição do user, por conta do mesmo email", async () => {
     const response = await request(app)
-      .post("/users")
+      .post("/v1/users")
       .set("Authorization", `Bearer ${token}`)
       .send({
         email: "test@sps.com",

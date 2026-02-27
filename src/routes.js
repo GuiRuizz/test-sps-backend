@@ -10,15 +10,18 @@ import {
   deleteUser,
 } from './controllers/userController.js';
 
-// Login (única rota pública)
-router.post('/auth/login', login);
+const v1 = express.Router();
 
-// Todas abaixo protegidas
-router.use(authMiddleware);
+v1.post('/auth/login', login);
 
-router.get('/users', listUsers);
-router.post('/users', createUser);
-router.put('/users/:id', updateUser);
-router.delete('/users/:id', deleteUser);
+v1.use(authMiddleware);
+
+v1.get('/users', listUsers);
+v1.post('/users', createUser);
+v1.put('/users/:id', updateUser);
+v1.delete('/users/:id', deleteUser);
+
+
+router.use('/v1', v1);
 
 export default router;
