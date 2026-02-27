@@ -48,21 +48,21 @@ Ela permite gerenciar usuários com operações de CRUD e autenticação via log
 
 ## 🗂 Estrutura do Projeto
 
-src/
-├─ tests/
-│  ├─ auth.test.js
-│  └─ user.test.js
-├─ controllers/
-│  ├─ authController.js
-│  └─ userController.js
-├─ middleware/
-│  └─ auth.js
-├─ view/
-│  └─ userView.js
-├─ app.js
-├─ database.js
-├─ index.js
-└─ routes.js
+src/  
+├─ tests/    
+|  ├─ auth.test.js    
+│  └─ user.test.js    
+├─ controllers/    
+│  ├─ authController.js    
+│  └─ userController.js    
+├─ middleware/    
+│  └─ auth.js    
+├─ view/    
+│  └─ userView.js    
+├─ app.js    
+├─ database.js    
+├─ index.js    
+└─ routes.js    
 
 ---
 
