@@ -47,3 +47,22 @@ describe("User CRUD", () => {
     expect(response.status).toBe(400);
   });
 });
+
+
+it("Deve retornar o usuário admin com ID 1", async () => {
+  const response = await request(app)
+    .get("/v1/users/1")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(response.status).toBe(200);
+  expect(response.body).toHaveProperty("id", 1);
+});
+
+it("Deve retornar erro ao buscar usuário com ID negativo", async () => {
+  const response = await request(app)
+    .get("/v1/users/-1")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(response.status).toBe(404);
+  expect(response.body).toHaveProperty("error");
+});

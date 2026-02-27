@@ -7,6 +7,17 @@ export function listUsers(req, res) {
   return res.json(renderMany(users));
 }
 
+export function listUserById(req, res) {
+  const { id } = req.params;
+  const index = users.findIndex(u => u.id == id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Usuário não encontrado' });
+  }
+
+  return res.json(render(users[index]));
+}
+
 export async function createUser(req, res) {
   const { email, name, type, password } = req.body;
 

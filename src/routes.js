@@ -8,6 +8,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  listUserById,
 } from './controllers/userController.js';
 
 const v1 = express.Router();
@@ -17,6 +18,7 @@ v1.post('/auth/login', login);
 v1.use(authMiddleware);
 
 v1.get('/users', listUsers);
+v1.get('/users/:id', listUserById);
 v1.post('/users', createUser);
 v1.put('/users/:id', updateUser);
 v1.delete('/users/:id', deleteUser);
