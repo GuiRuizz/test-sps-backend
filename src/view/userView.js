@@ -1,4 +1,4 @@
-function render(user) {
+export function render(user) {
   return {
     id: user.id,
     email: user.email,
@@ -7,11 +7,6 @@ function render(user) {
   };
 }
 
-function renderMany(users) {
+export function renderMany(users) {
   return users.map(render);
 }
-
-module.exports = {
-  render,
-  renderMany,
-};
