@@ -1,14 +1,14 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-const authMiddleware = require('./middleware/auth');
-const { login } = require('./controllers/authController');
-const {
+import authMiddleware from './middleware/auth.js';
+import { login } from './controllers/authController.js';
+import {
   listUsers,
   createUser,
   updateUser,
   deleteUser,
-} = require('./controllers/userController');
+} from './controllers/userController.js';
 
 // Login (única rota pública)
 router.post('/auth/login', login);
@@ -21,4 +21,4 @@ router.post('/users', createUser);
 router.put('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
 
-module.exports = router;
+export default router;

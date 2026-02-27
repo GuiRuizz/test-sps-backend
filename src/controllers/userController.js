@@ -1,22 +1,20 @@
-const bcrypt = require('bcryptjs');
-const { users } = require('../database');
+import { hash } from 'bcryptjs';
+import { users } from '../database.js';
+import { v7 as uuidv7 } from 'uuid';
+import { renderMany, render } from "../view/userView.js";
 
-function listUsers(req, res) {
-  return res.json(userView.renderMany(users));
+export function listUsers(req, res) {
+  return res.json(renderMany(users));
 }
 
-async function createUser(req, res) {
+export async function createUser(req, res) {
   const { email, name, type, password } = req.body;
 
-  const emailExists = users.find(u => u.email === email);
-
-  if (emailExists) {
+  if (users.find(u => u.email === email)) {
     return res.status(400).json({ error: 'E-mail já cadastrado' });
   }
 
-  const hashedPassword = await bcrypt.hash(password, 8);
-
-  const { v7: uuidv7 } = require('uuid'); 
+  const hashedPassword = await hash(password, 8);
 
   const newUser = {
     id: uuidv7(),
@@ -28,46 +26,31 @@ async function createUser(req, res) {
 
   users.push(newUser);
 
-  return res.status(201).json(userView.render(newUser));
+  return res.status(201).json(render(newUser));
 }
 
-function updateUser(req, res) {
+export function updateUser(req, res) {
   const { id } = req.params;
   const index = users.findIndex(u => u.id == id);
 
-  if (index === -1) {
-    return res.status(404).json({ error: 'Usuário não encontrado' });
-  }
+  if (index === -1) return res.status(404).json({ error: 'Usuário não encontrado' });
 
   users[index] = { ...users[index], ...req.body };
-
-  return res.json(userView.render(users[index]));
+  return res.json(render(users[index]));
 }
 
-const userView = require("../view/userView");
-
-function deleteUser(req, res) {
+export function deleteUser(req, res) {
   const { id } = req.params;
   const index = users.findIndex(u => u.id == id);
 
-  if (index === -1) {
-    return res.status(404).json({ error: "Usuário não encontrado" });
-  }
+  if (index === -1) return res.status(404).json({ error: "Usuário não encontrado" });
 
   const deletedUser = users[index];
-
   users.splice(index, 1);
 
   return res.status(200).json({
     success: true,
     message: "Usuário excluído com sucesso",
-    data: userView.render(deletedUser)
+    data: render(deletedUser)
   });
 }
-
-module.exports = {
-  listUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-};  
