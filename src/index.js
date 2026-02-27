@@ -1,17 +1,8 @@
-const express = require("express");
-const routes = require("./routes");
-const cors = require("cors");
+import 'dotenv/config';
+import app from "./app.js";
+
 const PORT = process.env.PORT || 3001;
-require("dotenv").config();
-
-const app = express();
-
-app.use(cors());
-app.use(express.json()); 
-
-app.use(routes);
-
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server rodando no http://localhost:${PORT}`);
 });
