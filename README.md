@@ -1,7 +1,10 @@
 # API Node.js – Gestão de Usuários
 
-Esta é uma API RESTful desenvolvida em **Node.js** com **Express**, **JWT Authentication** e **versionamento de rotas** (`/v1`).  
-Ela permite gerenciar usuários com operações de CRUD e autenticação via login.
+Esta é uma API RESTful desenvolvida em **Node.js** com **Express**, utilizando **JWT Authentication** e **versionamento de rotas** (`/v1`).
+
+O projeto segue os princípios da **Clean Architecture**, promovendo separação de responsabilidades, baixo acoplamento entre camadas e alta testabilidade.
+
+A aplicação permite gerenciar usuários por meio de operações de **CRUD** e autenticação via login, garantindo organização estrutural e escalabilidade do código.
 
 ---
 
@@ -48,21 +51,65 @@ Ela permite gerenciar usuários com operações de CRUD e autenticação via log
 
 ## 🗂 Estrutura do Projeto
 
-src/
-├─ tests/
-│  ├─ auth.test.js
-│  └─ user.test.js
-├─ controllers/
-│  ├─ authController.js
-│  └─ userController.js
-├─ middleware/
-│  └─ auth.js
-├─ view/
-│  └─ userView.js
-├─ app.js
-├─ database.js
-├─ index.js
-└─ routes.js
+### Clean Architecture
+
+```bash
+test-sps-backend/
+├─ .vscode/
+│  └─ launch.json
+├─ src/
+│  ├─ __tests__/
+│  │  ├─ auth.test.js
+│  │  └─ user.test.js
+│  ├─ application/
+│  │  └─ usecases/
+│  │     ├─ auth/
+│  │     │  └─ AuthenticateUser.js
+│  │     └─ users/
+│  │        ├─ CreateUser.js
+│  │        ├─ DeleteUser.js
+│  │        ├─ GetAllUsers.js
+│  │        ├─ GetUserById.js
+│  │        └─ UpdateUser.js
+│  ├─ domain/
+│  │  ├─ entities/
+│  │  │  └─ User.js
+│  │  └─ repositories/
+│  │     └─ IUserRepository.js
+│  ├─ infrastructure/
+│  │  ├─ repositories/
+│  │  │  └─ UserRepositoryMemory.js
+│  │  └─ services/
+│  │     ├─ HashService.js
+│  │     ├─ JwtService.js
+│  │     └─ UuidService.js
+│  ├─ interfaces/
+│  │  └─ http/
+│  │     ├─ controllers/
+│  │     │  ├─ AuthController.js
+│  │     │  └─ UserController.js
+│  │     └─ middleware/
+│  │        └─ AuthMiddleware.js
+│  ├─ main/
+│  │  ├─ authFactory.js
+│  │  └─ userFactory.js
+│  ├─ view/
+│  │  └─ UserView.js
+│  ├─ app.js
+│  ├─ database.js
+│  ├─ index.js
+│  └─ routes.js
+├─ .env
+├─ .gitignore
+├─ babel.config.js
+├─ env copy
+├─ jest.config.cjs
+├─ package.json
+├─ README.md
+└─ yarn.lock
+
+
+```
 
 ---
 
