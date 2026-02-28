@@ -1,29 +1,40 @@
-import express from 'express';
-const router = express.Router();
+import express from "express"
+const router = express.Router()
 
-import authMiddleware from './middleware/auth.js';
-import { login } from './controllers/authController.js';
-import {
-  listUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-  listUserById,
-} from './controllers/userController.js';
+import { authController, authMiddleware } from "./main/authFactory.js"
+import { userController } from "./main/userFactory.js"
 
-const v1 = express.Router();
+const v1 = express.Router()
 
-v1.post('/auth/login', login);
+// rota pública
+v1.post("/auth/login", (req, res) =>
+  authController.login(req, res)
+)
 
-v1.use(authMiddleware);
+// middleware global
+v1.use(authMiddleware.handle)
 
-v1.get('/users', listUsers);
-v1.get('/users/:id', listUserById);
-v1.post('/users', createUser);
-v1.put('/users/:id', updateUser);
-v1.delete('/users/:id', deleteUser);
+// rotas protegidas
+v1.get("/users", (req, res) =>
+  userController.getAll(req, res)
+)
 
+v1.get("/users/:id", (req, res) =>
+  userController.getById(req, res)
+)
 
-router.use('/v1', v1);
+v1.post("/users", (req, res) =>
+  userController.create(req, res)
+)
 
-export default router;
+v1.put("/users/:id", (req, res) =>
+  userController.update(req, res)
+)
+
+v1.delete("/users/:id", (req, res) =>
+  userController.delete(req, res)
+)
+
+router.use("/v1", v1)
+
+export default router
